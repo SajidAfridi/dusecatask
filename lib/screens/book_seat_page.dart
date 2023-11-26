@@ -137,7 +137,7 @@ class BookSeatsScreen extends StatelessWidget {
     return Image.asset(
       imagePath,
       height: 40.h,
-      width: 40.w,
+      width: 35.w,
     );
   }
 }
