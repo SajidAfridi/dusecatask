@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import '../constants/seat_status.dart';
+import '../widgets/book_seats_screen_widgets/seat_status.dart';
 import 'package:flutter/material.dart';
 
 class SeatProvider with ChangeNotifier {
@@ -10,12 +10,18 @@ class SeatProvider with ChangeNotifier {
     seats = List.generate(numberOfSeats, (index) => _getRandomSeatStatus());
   }
 
-  selectSeat(int seatIndex) {
-    if (seats[seatIndex] == SeatStatus.available) {
-      seats[seatIndex] = SeatStatus.selected;
-      notifyListeners();
-    }
+  selectSeat(int seatIndex, BuildContext context) {
+    //showing a scaffold snack bar with seat status along with seat number.
+    final seatStatus = seats[seatIndex];
+    final snackBar = SnackBar(
+      content: Text('Seat ${seatIndex + 1} is ${seatStatus.name}'),
+      backgroundColor: colorDecider(seatStatus),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
+
+
+
   SeatStatus _getRandomSeatStatus() {
     // Implement logic to randomly assign seat status based on your requirements
     // For example, you can use math.random() to generate random indices for seat types.
@@ -34,4 +40,16 @@ class SeatProvider with ChangeNotifier {
     }
   }
 
+  colorDecider(SeatStatus seatStatus) {
+    switch (seatStatus) {
+      case SeatStatus.available:
+        return Colors.green;
+      case SeatStatus.unavailable:
+        return Colors.grey;
+      case SeatStatus.selected:
+        return Colors.red;
+      default:
+        return Colors.green;
+    }
+  }
 }

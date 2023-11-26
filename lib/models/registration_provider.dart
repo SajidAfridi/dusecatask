@@ -1,6 +1,6 @@
 
 import 'package:dusecatask/class/registeration_textfields_class.dart';
-import 'package:dusecatask/constants/register_fields_hints_labels.dart';
+import 'package:dusecatask/widgets/register_screen_widget/register_fields_hints_labels.dart';
 import 'package:flutter/material.dart';
 
 class RegisterProvider extends ChangeNotifier {

@@ -1,4 +1,4 @@
-import 'package:dusecatask/widgets/common_check_box.dart';
+import 'package:dusecatask/widgets/register_screen_widget/common_check_box.dart';
 import 'package:dusecatask/models/registration_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

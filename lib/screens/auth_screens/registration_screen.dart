@@ -1,11 +1,11 @@
-import 'package:dusecatask/widgets/common_check_box.dart';
-import 'package:dusecatask/screens/home_page.dart';
-import 'package:dusecatask/widgets/registeration_fields.dart';
+import 'package:dusecatask/widgets/register_screen_widget/common_check_box.dart';
+import 'package:dusecatask/screens/book_seat_page.dart';
+import 'package:dusecatask/widgets/register_screen_widget/registeration_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import '../../models/registration_provider.dart';
-import '../../widgets/register_check_boxes.dart';
+import '../../widgets/register_screen_widget/register_check_boxes.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});
@@ -96,7 +96,7 @@ class RegisterPage extends StatelessWidget {
                   onPressed: () {
                     var validationValue =Provider.of<RegisterProvider>(context, listen: false).validation();
                     if(validationValue=='Success'){
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePage()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const BookSeatsScreen()));
                     }
                     else{
                       ScaffoldMessenger.of(context).showSnackBar(
