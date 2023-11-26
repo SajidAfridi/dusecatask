@@ -78,7 +78,6 @@ class BookSeatsScreen extends StatelessWidget {
         SizedBox(height: 16.h),
         //the following are the interior of the car
         // which i have commented out for now
-
         // Positioned(
         //   top: 160.h,
         //   right: 22,
