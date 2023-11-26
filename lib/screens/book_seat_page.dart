@@ -62,10 +62,9 @@ class BookSeatsScreen extends StatelessWidget {
 
   Stack buildStack(SeatProvider seatProvider) {
     final numberOfSeats = seatProvider.seats.length;
+    //each row contain 3 seats so we need to find out the number of rows
     final numberOfRows = (numberOfSeats / 3).ceil();
     final carBodyHeight = 100.0 + (numberOfRows * 64.0);
-    //each row contain 3 seats so we need to find out the number of rows
-    print(numberOfRows);
     return Stack(
       children: [
         SizedBox(
