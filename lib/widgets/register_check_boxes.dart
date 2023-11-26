@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
-class CheckBoxes extends StatelessWidget {
-  const CheckBoxes({super.key});
+class UserRoleCheckBoxes extends StatelessWidget {
+  const UserRoleCheckBoxes({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,7 @@
 import 'package:dusecatask/bar_chart/bar_graph.dart';
 import 'package:dusecatask/common_widgets/custom_appBar.dart';
 import 'package:dusecatask/common_widgets/elevated_button.dart';
+import 'package:dusecatask/screens/ride_history_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -118,20 +119,26 @@ class _DriverInfoScreenState extends State<DriverInfoScreen>
                       SizedBox(
                           height: 40.h,
                           width: 100.w,
-                          child: elevatedButton('Withdraw', () {}))
+                          child: elevatedButton('Withdraw', () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return const RideHistoryScreen();
+                            }));
+                          }))
                     ],
                   ),
-                  SizedBox(height: 30.h,),
+                  SizedBox(
+                    height: 30.h,
+                  ),
                   Center(
-                    child:Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 14.w,vertical: 0),
-                      child: Divider(
-                        thickness: 1.h,
-                        color: const Color(0xff3E4958).withOpacity(0.17),
-                      ),
-
-                    )
-                  )
+                      child: Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 14.w, vertical: 0),
+                    child: Divider(
+                      thickness: 1.h,
+                      color: const Color(0xff3E4958).withOpacity(0.17),
+                    ),
+                  ))
                 ],
               ),
             ),

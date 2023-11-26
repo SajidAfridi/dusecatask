@@ -4,18 +4,27 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:provider/provider.dart';
 
-class RegisterFields extends StatelessWidget {
+class RegisterFields extends StatefulWidget {
   const RegisterFields({super.key});
+
+  @override
+  State<RegisterFields> createState() => _RegisterFieldsState();
+}
+
+class _RegisterFieldsState extends State<RegisterFields> {
+  bool isPasswordVisible = false;
+  bool isConfirmPasswordVisible = false;
 
   @override
   Widget build(BuildContext context) {
     return Consumer<RegisterProvider>(
       builder: (BuildContext context, RegisterProvider value, Widget? child) {
         return Form(
+          key: value.formKey,
           child: ListView.builder(
             padding: EdgeInsets.zero,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: value.listRegisterFields.length,
+            itemCount: value.fields.length,
             itemBuilder: (context, index) {
               return Padding(
                 padding: EdgeInsets.only(bottom: 14.h),
@@ -26,7 +35,7 @@ class RegisterFields extends StatelessWidget {
                       SizedBox(
                         height: 15.h,
                         child: Text(
-                          value.listRegisterFields[index].textFieldName,
+                          value.fields[index].textFieldName,
                           style: TextStyle(
                             fontSize: 12.sp,
                             color: const Color(0xff303535),
@@ -37,8 +46,7 @@ class RegisterFields extends StatelessWidget {
                       SizedBox(
                         height: 6.h,
                       ),
-                      value.listRegisterFields[index].textFieldName ==
-                              'Phone no*'
+                      value.fields[index].textFieldName == 'Phone no*'
                           ? SizedBox(
                               height: 38.h,
                               width: 296.w,
@@ -58,12 +66,10 @@ class RegisterFields extends StatelessWidget {
                                 ),
                                 showCountryFlag: false,
                                 initialCountryCode: 'UK',
-                                controller:
-                                    value.listRegisterFields[index].controller,
+                                controller: value.fields[index].controller,
                                 dropdownIconPosition: IconPosition.trailing,
                                 decoration: InputDecoration(
-                                  hintText:
-                                      value.listRegisterFields[index].hintText,
+                                  hintText: value.fields[index].hintText,
                                   hintStyle: TextStyle(
                                     fontSize: 10.sp,
                                     color: const Color(0xffA1A3B0),
@@ -113,49 +119,38 @@ class RegisterFields extends StatelessWidget {
       height: 38.h,
       width: 296.w,
       child: TextFormField(
-        obscureText: value.listRegisterFields[index].textFieldName == 'Password'
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        cursorHeight: 20.h,
+        cursorColor: const Color(0xffA1A3B0),
+        obscureText: value.fields[index].textFieldName == 'Password'
             ? !value.isPasswordVisible
-            : value.listRegisterFields[index].textFieldName ==
-                    'Confirm password'
+            : value.fields[index].textFieldName == 'Confirm password'
                 ? !value.isConfirmPasswordVisible
                 : false,
-        controller: value.listRegisterFields[index].controller,
+        controller: value.fields[index].controller,
         onChanged: (text) {
-          if (value.listRegisterFields[index].textFieldName == 'Password' ||
-              value.listRegisterFields[index].textFieldName ==
-                  'Confirm password') {
+          if (value.fields[index].textFieldName == 'Your email') {
+            value.emailValidation(text);
+          } else if (value.fields[index].textFieldName == 'Password') {
             value.passwordValidation(text);
+          }
+          if (value.fields[index].textFieldName == 'Confirm password') {
+            if (value.fields[index - 1].controller.text == text) {
+              value.isConfirmPasswordValidated = true;
+            } else {
+              value.isConfirmPasswordValidated = false;
+            }
+            ;
           }
         },
         decoration: InputDecoration(
-          suffixIcon:
-              value.listRegisterFields[index].textFieldName == 'Password'
-                  ? IconButton(
-                      onPressed: () {
-                        value.togglePasswordVisibility();
-                      },
-                      icon: Icon(
-                        value.isPasswordVisible
-                            ? Icons.visibility
-                            : Icons.visibility_off,
-                        color: const Color(0xffA1A3B0),
-                      ),
-                    )
-                  : value.listRegisterFields[index].textFieldName ==
-                          'Confirm password'
-                      ? IconButton(
-                          onPressed: () {
-                            value.toggleConfirmPasswordVisibility();
-                          },
-                          icon: Icon(
-                            value.isConfirmPasswordVisible
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                            color: const Color(0xffA1A3B0),
-                          ),
-                        )
-                      : null,
-          hintText: value.listRegisterFields[index].hintText,
+          contentPadding: EdgeInsets.only(
+            left: 17.w,
+            top: 0.h,
+            bottom: 5.h,
+          ),
+          suffixIcon: suffixIconDecider(value, index),
+          hintText: value.fields[index].hintText,
           hintStyle: TextStyle(
             fontSize: 10.sp,
             color: const Color(0xffA1A3B0),
@@ -164,8 +159,8 @@ class RegisterFields extends StatelessWidget {
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(24.r),
             borderSide: BorderSide(
-              color: const Color(0xffDADADA),
-              width: 2.w,
+              color: borderColorDecider(value, index),
+              width: 10.w,
             ),
           ),
           errorBorder: OutlineInputBorder(
@@ -178,12 +173,55 @@ class RegisterFields extends StatelessWidget {
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(24.r),
             borderSide: BorderSide(
-              color: const Color(0xffDADADA),
-              width: 2.w,
+              color: borderColorDecider(value, index),
+              width: 1.w,
             ),
           ),
         ),
       ),
     );
+  }
+
+  // create a function to handle the suffix icon of the password, confirm password and email
+  suffixIconDecider(RegisterProvider value, int index) {
+    if (value.fields[index].textFieldName == 'Your email') {
+      return Icon(
+        value.isEmailValidated ? Icons.check : null,
+        color: const Color(0xffA1A3B0),
+      );
+    }
+    if (value.fields[index].textFieldName == 'Password') {
+      return IconButton(
+        onPressed: () {
+          value.togglePasswordVisibility();
+        },
+        icon: Icon(
+          value.isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+          color: const Color(0xffA1A3B0),
+        ),
+      );
+    } else if (value.fields[index].textFieldName == 'Confirm password') {
+      return IconButton(
+        onPressed: () {
+          value.toggleConfirmPasswordVisibility();
+        },
+        icon: Icon(
+          value.isConfirmPasswordVisible
+              ? Icons.visibility
+              : Icons.visibility_off,
+          color: const Color(0xffA1A3B0),
+        ),
+      );
+    } else {
+      return null;
+    }
+  }
+
+  borderColorDecider(RegisterProvider value, int index) {
+    if (value.fields[index].textFieldName == 'Your email') {
+      return value.isEmailValidated ? Colors.green : Colors.black;
+    } else {
+      return Colors.black;
+    }
   }
 }

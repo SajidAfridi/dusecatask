@@ -1,16 +1,11 @@
 import 'package:dusecatask/common_widgets/elevated_button.dart';
-import 'package:dusecatask/screens/ride_history_screen.dart';
+import 'package:dusecatask/screens/driver_info_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
+import '../constants/seat_status.dart';
 import '../models/seat_provider.dart';
-
-enum SeatStatus {
-  available,
-  unavailable,
-  selected,
-}
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -23,70 +18,62 @@ class HomePage extends StatelessWidget {
       child: Scaffold(
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             SizedBox(height: 30.h),
             const Text('Book Seat'),
             SizedBox(height: 16.h),
-            Container(
-              height: 39.h,
-              width: 360.w,
-              color: const Color(0xfffee6e6),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        height: 23.04.h,
-                        width: 25.w,
-                        color: Colors.green,
-                      ),
-                      SizedBox(
-                        width: 10.w,
-                      ),
-                      const Text('Available')
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Container(
-                        height: 23.04.h,
-                        width: 25.w,
-                        color: Colors.grey,
-                      ),
-                      SizedBox(
-                        width: 10.w,
-                      ),
-                      const Text('Unavailable')
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Container(
-                        height: 23.04.h,
-                        width: 25.w,
-                        color: const Color(0xffE52A24),
-                      ),
-                      SizedBox(
-                        width: 10.w,
-                      ),
-                      const Text('Selected')
-                    ],
-                  ),
-                ],
-              ),
-            ),
+            const BookSeatStatusRow(),
             SizedBox(height: 41.h),
-            Stack(
+            SizedBox(
+              height: 500.h,
+              //lets build the dynamic part of it
+              child: buildStack(seatProvider),
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
+            elevatedButton(
+              'Select Seat',
+              () {
+                return Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const DriverInfoScreen();
+                    },
+                  ),
+                );
+              },
+            ),
+            SizedBox(
+              height: 48.h,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+
+
+  Stack buildStack(SeatProvider seatProvider) {
+    return Stack(
               children: [
                 SizedBox(
-                  child: Image.asset('assets/images/car_body.png'),
+                  width: 155.w,
+                  height: 350.h,
+                  child: Image.asset(
+                    'assets/images/car_body.png',
+                    fit: BoxFit.fill,
+                  ),
                 ),
                 SizedBox(height: 16.h),
                 Positioned(
-                    top: 160.h,
-                    right: 22,
-                    child: Image.asset('assets/images/long_rec.png')),
+                  top: 160.h,
+                  right: 22,
+                  child: Image.asset('assets/images/long_rec.png'),
+                ),
                 Positioned(
                   top: 163.h,
                   right: 70,
@@ -127,27 +114,7 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
               ],
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: elevatedButton(
-                'Select Seat',
-                    () {
-                  return Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return const RideHistoryScreen();
-                      },
-                    ),
-                  );
-                },
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+            );
   }
 
   Widget _getSeatWidget(SeatStatus seatStatus, int seatIndex) {
@@ -193,6 +160,65 @@ class HomePage extends StatelessWidget {
           ],
         );
       },
+    );
+  }
+}
+
+class BookSeatStatusRow extends StatelessWidget {
+  const BookSeatStatusRow({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 39.h,
+      width: 360.w,
+      color: const Color(0xfffee6e6),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Row(
+            children: [
+              Container(
+                height: 23.04.h,
+                width: 25.w,
+                color: Colors.green,
+              ),
+              SizedBox(
+                width: 10.w,
+              ),
+              const Text('Available')
+            ],
+          ),
+          Row(
+            children: [
+              Container(
+                height: 23.04.h,
+                width: 25.w,
+                color: Colors.grey,
+              ),
+              SizedBox(
+                width: 10.w,
+              ),
+              const Text('Unavailable')
+            ],
+          ),
+          Row(
+            children: [
+              Container(
+                height: 23.04.h,
+                width: 25.w,
+                color: const Color(0xffE52A24),
+              ),
+              SizedBox(
+                width: 10.w,
+              ),
+              const Text('Selected')
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
