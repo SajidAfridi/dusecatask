@@ -1,22 +1,13 @@
+import 'dart:math';
+
 import '../constants/seat_status.dart';
 import 'package:flutter/material.dart';
 
 class SeatProvider with ChangeNotifier {
-  List<SeatStatus> seats = [
-    SeatStatus.available,
-    SeatStatus.available,
-    SeatStatus.unavailable,
-    SeatStatus.available,
-    SeatStatus.available,
-    SeatStatus.unavailable,
-    SeatStatus.available,
-    SeatStatus.available,
-    SeatStatus.unavailable,
-  ];
+  List<SeatStatus> seats = [];
 
   void initializeSeats(int numberOfSeats) {
-    // Initialize seats based on the number of seats in the car
-    seats = List.generate(numberOfSeats, (index) => SeatStatus.available);
+    seats = List.generate(numberOfSeats, (index) => _getRandomSeatStatus());
   }
 
   selectSeat(int seatIndex) {
@@ -25,6 +16,22 @@ class SeatProvider with ChangeNotifier {
       notifyListeners();
     }
   }
+  SeatStatus _getRandomSeatStatus() {
+    // Implement logic to randomly assign seat status based on your requirements
+    // For example, you can use math.random() to generate random indices for seat types.
+    // Update this method as per your specific needs.
+    // This is just a sample, and you might need to adjust it.
+    final random = Random().nextInt(3); // Assuming 3 seat types
+    switch (random) {
+      case 0:
+        return SeatStatus.available;
+      case 1:
+        return SeatStatus.unavailable;
+      case 2:
+        return SeatStatus.selected;
+      default:
+        return SeatStatus.available;
+    }
+  }
 
-// Add more methods as needed for your use case, e.g., unselectSeat, bookSeat, etc.
 }

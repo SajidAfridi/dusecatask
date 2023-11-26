@@ -13,7 +13,9 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final seatProvider = Provider.of<SeatProvider>(context);
-
+    // Specify the number of seats required
+    const numberOfSeats = 9;
+    seatProvider.initializeSeats(numberOfSeats);
     return SafeArea(
       child: Scaffold(
         body: Column(
@@ -58,11 +60,13 @@ class HomePage extends StatelessWidget {
 
 
   Stack buildStack(SeatProvider seatProvider) {
+    final numberOfSeats = seatProvider.seats.length;
+    final carBodyHeight = 110.0 + numberOfSeats * 20.0;
     return Stack(
               children: [
                 SizedBox(
                   width: 155.w,
-                  height: 350.h,
+                  height: carBodyHeight.h,
                   child: Image.asset(
                     'assets/images/car_body.png',
                     fit: BoxFit.fill,
@@ -81,7 +85,7 @@ class HomePage extends StatelessWidget {
                 ),
                 // Using a GridView to display seats dynamically
                 Positioned(
-                  top: 120.h,
+                  top: 120+(numberOfSeats*2).h,
                   right: 15,
                   child: SizedBox(
                     height: 400.h,
