@@ -1,9 +1,10 @@
-import 'package:dusecatask/bar_chart/bar_graph.dart';
 import 'package:dusecatask/common_widgets/custom_appBar.dart';
 import 'package:dusecatask/common_widgets/elevated_button.dart';
 import 'package:dusecatask/screens/ride_history_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../widgets/bar_chart/bar_graph.dart';
 
 class DriverInfoScreen extends StatefulWidget {
   const DriverInfoScreen({super.key});

@@ -1,7 +1,8 @@
-import 'package:dusecatask/bar_chart/bar_chart_data.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'bar_chart_data.dart';
 
 class MyBarChart extends StatelessWidget {
   final List<double> weeklySummary;
@@ -26,9 +27,8 @@ class MyBarChart extends StatelessWidget {
         barTouchData: BarTouchData(
           enabled: true,
           touchTooltipData: BarTouchTooltipData(
-            fitInsideVertically: false,
             tooltipRoundedRadius: 16.r,
-            tooltipBgColor: Colors.red,
+            tooltipBgColor: const Color(0xffE92928),
             tooltipBorder: BorderSide(
               color: Colors.white,
               width: 1.w,
@@ -40,7 +40,7 @@ class MyBarChart extends StatelessWidget {
             tooltipMargin: 8.w,
             getTooltipItem: (group, groupIndex, rod, rodIndex) {
               return BarTooltipItem(
-                '${rod.fromY}\$',
+                '${rod.toY}\$',
                 TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.w700,
