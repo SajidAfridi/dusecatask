@@ -3,7 +3,6 @@ import 'package:dusecatask/screens/driver_info_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-
 import '../widgets/book_seats_screen_widgets/seat_status.dart';
 import '../models/seat_provider.dart';
 import '../widgets/book_seats_screen_widgets/book_seat_status_row.dart';
@@ -15,7 +14,7 @@ class BookSeatsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final seatProvider = Provider.of<SeatProvider>(context);
     // Specify the number of seats required
-    const numberOfSeats = 15;
+    const numberOfSeats = 14;
     seatProvider.initializeSeats(numberOfSeats);
     return SafeArea(
       child: Scaffold(
@@ -64,7 +63,7 @@ class BookSeatsScreen extends StatelessWidget {
     final numberOfSeats = seatProvider.seats.length;
     //each row contain 3 seats so we need to find out the number of rows
     final numberOfRows = (numberOfSeats / 3).ceil();
-    final carBodyHeight = 100.0 + (numberOfRows * 64.0);
+    final carBodyHeight = 110.0 + (numberOfRows * 64.0);
     return Stack(
       children: [
         SizedBox(
@@ -76,22 +75,10 @@ class BookSeatsScreen extends StatelessWidget {
           ),
         ),
         SizedBox(height: 16.h),
-        //the following are the interior of the car
-        // which i have commented out for now
-        // Positioned(
-        //   top: 160.h,
-        //   right: 22,
-        //   child: Image.asset('assets/images/long_rec.png'),
-        // ),
-        // Positioned(
-        //   top: 163.h,
-        //   right: 70,
-        //   child: Image.asset('assets/images/short_rec.png'),
-        // ),
         // Using a GridView to display seats dynamically
         Positioned(
-          top: 60 + (numberOfRows * 20).h,
-          right: 15,
+          top: 60 + (numberOfRows * 17).h,
+          right: 13,
           child: SizedBox(
             height: 400.h,
             width: 130.w,
