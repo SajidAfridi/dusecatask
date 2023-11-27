@@ -93,8 +93,8 @@ class _RegisterFieldsState extends State<RegisterFields> {
       height: 38.h,
       width: 296.w,
       child: TextFormField(
+        cursorRadius: Radius.circular(5.r),
         autovalidateMode: AutovalidateMode.onUserInteraction,
-        cursorHeight: 20.h,
         cursorColor: const Color(0xffA1A3B0),
         obscureText: value.fields[index].textFieldName == 'Password'
             ? !value.isPasswordVisible

@@ -5,14 +5,14 @@ Widget appBar(BuildContext context, String title) {
   return Padding(
     padding: EdgeInsets.only(left: 30.w),
     child: SizedBox(
-      height: 36.h,
+      height: 39.h,
       width: 214.w,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           //circular icon button with red color and some shadow
           Container(
-            height: 36.h,
+            height: 40.h,
             width: 36.w,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20.r),
@@ -27,16 +27,15 @@ Widget appBar(BuildContext context, String title) {
               ],
             ),
             child: Padding(
-              padding: EdgeInsets.only(left: 4.0.w),
-              child: Center(
-                child: IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: const Icon(
-                    Icons.arrow_back_ios,
-                    color: Colors.red,
-                  ),
+              padding: EdgeInsets.only(left: 0.5.w,bottom: 100.h),
+              child: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Icon(
+                  Icons.arrow_back_ios,
+                  color: Colors.red,
+                  size: 25.sp,
                 ),
               ),
             ),

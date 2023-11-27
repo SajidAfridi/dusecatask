@@ -101,7 +101,7 @@ class _DriverInfoScreenState extends State<DriverInfoScreen>
           ),
           Center(
             child: SizedBox(
-              height: 85.h,
+              height: 90.h,
               width: 295.w,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -119,7 +119,7 @@ class _DriverInfoScreenState extends State<DriverInfoScreen>
                       ),
                       SizedBox(
                           height: 40.h,
-                          width: 100.w,
+                          width: 120.w,
                           child: elevatedButton('Withdraw', () {
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
@@ -194,11 +194,11 @@ class _DriverInfoScreenState extends State<DriverInfoScreen>
               ),
             ),
             SizedBox(
-              height: 20.h,
+              height: 10.h,
             ),
             // a bar chart without the measuring numbers on x and y axis
             SizedBox(
-              height: 130.h,
+              height: 140.h,
               child: const MyBarChart(
                 weeklySummary: [160.4, 100.4, 220.6, 140.4, 200.4, 250.4, 40.4],
               ),

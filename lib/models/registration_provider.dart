@@ -4,7 +4,7 @@ import 'package:dusecatask/widgets/register_screen_widget/register_fields_hints_
 import 'package:flutter/material.dart';
 
 class RegisterProvider extends ChangeNotifier {
-  bool bisPasswordVisible = false;
+  bool isPasswordVisible = false;
   bool isConfirmPasswordVisible = false;
   bool isPasswordValidated = false;
   bool isPassenger = true;

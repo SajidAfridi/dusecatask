@@ -94,7 +94,7 @@ class MyBarChart extends StatelessWidget {
 
   SideTitles get _bottomTitles => SideTitles(
         showTitles: true,
-        reservedSize: 25.h,
+        reservedSize: 30.h,
         getTitlesWidget: (value, meta) {
           String text = '';
           switch (value.toInt()) {
