@@ -14,7 +14,7 @@ class BookSeatsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final seatProvider = Provider.of<SeatProvider>(context);
     // Specify the number of seats required
-    const numberOfSeats = 14;
+    const numberOfSeats = 8;
     seatProvider.initializeSeats(numberOfSeats);
     return SafeArea(
       child: Scaffold(
