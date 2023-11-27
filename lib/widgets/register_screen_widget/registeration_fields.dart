@@ -51,9 +51,11 @@ class _RegisterFieldsState extends State<RegisterFields> {
                               height: 38.h,
                               width: 296.w,
                               child: IntlPhoneField(
+                                cursorColor: const Color(0xffA1A3B0),
                                 disableLengthCheck: true,
+                                keyboardType: TextInputType.number,
                                 flagsButtonMargin: EdgeInsets.symmetric(
-                                  vertical: 6.h,
+                                  vertical: 7.h,
                                   horizontal: 8.w,
                                 ),
                                 dropdownDecoration: BoxDecoration(
@@ -65,38 +67,10 @@ class _RegisterFieldsState extends State<RegisterFields> {
                                   ),
                                 ),
                                 showCountryFlag: false,
-                                initialCountryCode: 'UK',
+                                initialCountryCode: 'PK',
                                 controller: value.fields[index].controller,
                                 dropdownIconPosition: IconPosition.trailing,
-                                decoration: InputDecoration(
-                                  hintText: value.fields[index].hintText,
-                                  hintStyle: TextStyle(
-                                    fontSize: 10.sp,
-                                    color: const Color(0xffA1A3B0),
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(24.r),
-                                    borderSide: BorderSide(
-                                      color: const Color(0xffDADADA),
-                                      width: 2.w,
-                                    ),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(24.r),
-                                    borderSide: BorderSide(
-                                      color: const Color(0xffDADADA),
-                                      width: 2.w,
-                                    ),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(24.r),
-                                    borderSide: BorderSide(
-                                      color: const Color(0xffDADADA),
-                                      width: 2.w,
-                                    ),
-                                  ),
-                                ),
+                                decoration: buildInputDecoration(value, index),
                               ),
                             )
                           : buildTextFields(
@@ -140,43 +114,40 @@ class _RegisterFieldsState extends State<RegisterFields> {
             } else {
               value.isConfirmPasswordValidated = false;
             }
-            ;
           }
         },
-        decoration: InputDecoration(
-          contentPadding: EdgeInsets.only(
-            left: 17.w,
-            top: 0.h,
-            bottom: 5.h,
-          ),
-          suffixIcon: suffixIconDecider(value, index),
-          hintText: value.fields[index].hintText,
-          hintStyle: TextStyle(
-            fontSize: 10.sp,
-            color: const Color(0xffA1A3B0),
-            fontWeight: FontWeight.w500,
-          ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(24.r),
-            borderSide: BorderSide(
-              color: borderColorDecider(value, index),
-              width: 10.w,
-            ),
-          ),
-          errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(24.r),
-            borderSide: BorderSide(
-              color: const Color(0xffDADADA),
-              width: 0.w,
-            ),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(24.r),
-            borderSide: BorderSide(
-              color: borderColorDecider(value, index),
-              width: 1.w,
-            ),
-          ),
+        decoration: buildInputDecoration(value, index),
+      ),
+    );
+  }
+
+  InputDecoration buildInputDecoration(RegisterProvider value, int index) {
+    return InputDecoration(
+      hintText: value.fields[index].hintText,
+      hintStyle: TextStyle(
+        fontSize: 10.sp,
+        color: const Color(0xffA1A3B0),
+        fontWeight: FontWeight.w500,
+      ),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(24.r),
+        borderSide: BorderSide(
+          color: const Color(0xffDADADA),
+          width: 2.w,
+        ),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(24.r),
+        borderSide: BorderSide(
+          color: const Color(0xffDADADA),
+          width: 2.w,
+        ),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(24.r),
+        borderSide: BorderSide(
+          color: const Color(0xffDADADA),
+          width: 2.w,
         ),
       ),
     );
@@ -221,7 +192,7 @@ class _RegisterFieldsState extends State<RegisterFields> {
     if (value.fields[index].textFieldName == 'Your email') {
       return value.isEmailValidated ? Colors.green : Colors.black;
     } else {
-      return Colors.black;
+      return const Color(0xffDADADA);
     }
   }
 }

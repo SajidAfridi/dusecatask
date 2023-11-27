@@ -33,8 +33,9 @@ class RegisterPage extends StatelessWidget {
                   child: Text(
                     'Duseca',
                     style: TextStyle(
-                      fontSize: 23.sp,
-                      fontWeight: FontWeight.w600,
+                      fontSize: 28.sp,
+                      height: 1.h,
+                      fontWeight: FontWeight.w400,
                       color: const Color(0xffE92928),
                     ),
                     textAlign: TextAlign.center,
@@ -94,11 +95,15 @@ class RegisterPage extends StatelessWidget {
                 width: 296.w,
                 child: ElevatedButton(
                   onPressed: () {
-                    var validationValue =Provider.of<RegisterProvider>(context, listen: false).validation();
-                    if(validationValue=='Success'){
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const BookSeatsScreen()));
-                    }
-                    else{
+                    var validationValue =
+                        Provider.of<RegisterProvider>(context, listen: false)
+                            .validation();
+                    if (validationValue == 'Success') {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const BookSeatsScreen()));
+                    } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(validationValue),
