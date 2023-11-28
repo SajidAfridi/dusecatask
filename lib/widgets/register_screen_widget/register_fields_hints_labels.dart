@@ -1,3 +1,4 @@
+// it is required that a label, hint and field name should be added for each field
 List<String> registerHints= [
   'e.g John Doe',
   'youremail@gmail.com',
