@@ -23,10 +23,6 @@ class SeatProvider with ChangeNotifier {
 
 
   SeatStatus _getRandomSeatStatus() {
-    // Implement logic to randomly assign seat status based on your requirements
-    // For example, you can use math.random() to generate random indices for seat types.
-    // Update this method as per your specific needs.
-    // This is just a sample, and you might need to adjust it.
     final random = Random().nextInt(3); // Assuming 3 seat types
     switch (random) {
       case 0:
